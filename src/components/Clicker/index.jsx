@@ -7,6 +7,8 @@
 */
 
 import { Component } from 'react';
+import Image from './../Image';
+import './clicker.css';
 
 class Clicker extends Component {
   constructor(props) {
@@ -26,14 +28,17 @@ class Clicker extends Component {
   }
 
   render() {
+    
     console.log(this);
     const {clickAmount} = this.state;
 
+    const button = <button className="btn" onClick={this.handleClick}>жми</button>;
+    const img = <Image src='http://localhost:3000/favicon.ico' alt="favvicon" />
 
     return (
     <div>
-      <p>Нажали {clickAmount} раз</p>
-      <button onClick={this.handleClick}>жми</button>
+      <p className="clickerText">Нажали {clickAmount} раз</p>
+      {clickAmount < 10 ? button : img}
     </div>)
   }
 }
