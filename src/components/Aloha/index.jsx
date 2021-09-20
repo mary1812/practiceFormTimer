@@ -7,40 +7,34 @@ class Aloha extends Component {
     this.state = {
       isGreeting: true,
     };
-
-    // this.switchState = this.switchState.bind(this);
+    
   }
 
   switchState = () => {
-    const { isGreeting } = this.state;
-    
-    const switchedGreeting = !isGreeting;
 
-    const newState = {
-      isGreeting : switchedGreeting
-    }
-
-    this.setState(newState);
-
-    /* 
     this.setState({
-      isGreeting : !isGreeting
+      isGreeting: !this.state.isGreeting
     });
-        */
   }
 
+
   render() {
-    const { name } = this.props;
+    const { user }  = this.props;
+    
     const { isGreeting } = this.state;
 
-    return (
-      <div>
-        <h1>
-          {isGreeting ? 'Привет' : 'Пока'} {name}
-        </h1>
-        <button onClick={this.switchState}>Нажми чтобы поменять состояние</button>
-      </div>
-    );
+    let text;
+
+    if(isGreeting) {
+      text = 'Привет'
+    } else {
+      text = 'Пока'
+    }
+
+    return <section>
+      <h1>{text} {user.name} {user.surName}</h1>
+      {isGreeting ? <button onClick={this.switchState}>Сменить</button> : null}
+    </section>
   }
 }
 
