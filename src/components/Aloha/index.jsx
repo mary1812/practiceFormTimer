@@ -7,34 +7,40 @@ class Aloha extends Component {
     this.state = {
       isGreeting: true,
     };
-    
   }
 
   switchState = () => {
-
     this.setState({
-      isGreeting: !this.state.isGreeting
+      isGreeting: !this.state.isGreeting,
     });
-  }
-
+  };
 
   render() {
-    const { user }  = this.props;
-    
+    const {
+      user: { id, name, surName, isSelected },
+      selectUser
+    } = this.props;
+
+    const fullName = `${name} ${surName}`.trim();
+
     const { isGreeting } = this.state;
 
-    let text;
+    const styles = {
+      color: isSelected ? 'green' : 'black',
+      border: isSelected ? '2px solid black' : '2px solid transparent',
+    };
 
-    if(isGreeting) {
-      text = 'Привет'
-    } else {
-      text = 'Пока'
-    }
-
-    return <section>
-      <h1>{text} {user.name} {user.surName}</h1>
-      {isGreeting ? <button onClick={this.switchState}>Сменить</button> : null}
-    </section>
+    return (
+      <section style={styles}>
+        <h1>
+          {isGreeting ? 'Привет' : 'Пока'} {fullName}
+        </h1>
+        {isGreeting ? (
+          <button onClick={this.switchState}>Сменить</button>
+        ) : null}
+        <button onClick={() => selectUser(id)}>Выбрать</button>
+      </section>
+    );
   }
 }
 
